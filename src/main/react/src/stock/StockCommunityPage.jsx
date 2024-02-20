@@ -107,7 +107,7 @@ const StockCommunityPage = () => {
       accessToken: accessToken,
     };
     try {
-      const likes = await CommonAxios.postAxios(
+      const likes = await CommonAxios.postTokenAxios(
         "community",
         `like/${commentId}`,
         multiDto
@@ -131,7 +131,7 @@ const StockCommunityPage = () => {
       accessToken: accessToken,
     };
     try {
-      const disLikes = await CommonAxios.postAxios(
+      const disLikes = await CommonAxios.postTokenAxios(
         "community",
         `dislike/${commentId}`,
         multiDto

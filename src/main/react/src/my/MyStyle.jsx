@@ -440,7 +440,7 @@ export const NumberBox = styled.div`
   width: 100%;
   height: 100%;
   border: 1px solid red;
-  overflow: scroll;
+  overflow-x: scroll;
 
   /* Styles for the scrollbar */
   &::-webkit-scrollbar {

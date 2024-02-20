@@ -139,7 +139,7 @@ const SignupPage = () => {
         // 입력 모달 등장
         alert("이메일 전송");
       } else {
-        alert("이미 존재하는 이메일입니다.");
+        alert("존재하지 않는 이메일입니다.");
       }
     } catch (error) {
       alert("이메일 전송 실패");
@@ -312,13 +312,32 @@ const SignupPage = () => {
               closeText="확인"
               content={
                 <>
-                  <p>인증 번호를 입력하시오.</p>
+                  <p style={{ color: "var(--mainpurple)", fontWeight: "bold" }}>
+                    인증 번호를 입력해주세요.
+                  </p>
                   <InputBox
-                    style={{ backgroundColor: "white", color: "black" }}
+                    style={{
+                      backgroundColor: "white",
+                      color: "black",
+                    }}
                     placeholder="인증번호"
                     onChange={onChangeEpw}
                   ></InputBox>
-                  <button onClick={checkEPW}>확인</button>
+                  <button
+                    style={{
+                      border: "1px solid var(--mainlightpurple)",
+                      borderRadius: "30px",
+                      backgroundColor: "var(--mainpurple)",
+                      color: "white",
+                      width: "5rem",
+                      height: "4rem",
+                      marginLeft: "1rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={checkEPW}
+                  >
+                    확인
+                  </button>
                 </>
               }
             />

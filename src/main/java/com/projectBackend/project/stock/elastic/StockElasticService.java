@@ -24,7 +24,6 @@ import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,6 +31,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+
 
 @Slf4j
 @Service
@@ -182,7 +184,7 @@ public class StockElasticService {
             // Elasticsearch에 "news_index" 인덱스 생성 요청
             CreateIndexRequest createIndexRequest = new CreateIndexRequest("stock_index");
             // "settings" 및 "mappings"를 JSON 형식으로 설정
-            String settingsAndMappings = "{\"settings\": {\"analysis\": {\"tokenizer\": {\"nori_user_dict_tokenizer\": {\"type\": \"nori_tokenizer\",\"decompound_mode\": \"mixed\",\"discard_punctuation\": \"false\"}},\"filter\": {\"korean_stop\": {\"type\": \"stop\",\"stopwords_path\": \"C:\\\\Tools\\\\elasticsearch-7.17.12\\\\elasticsearch-7.17.12\\\\config\\\\analysis\\\\korean_stopwords.txt\"},\"nori_filter\": {\"type\": \"nori_part_of_speech\",\"stoptags\": [\"E\", \"IC\", \"J\", \"MAG\", \"MAJ\", \"MM\", \"SP\", \"SSC\", \"SSO\", \"SC\", \"SE\", \"XPN\", \"XSA\", \"XSN\", \"XSV\", \"UNA\", \"NA\", \"VSV\", \"NP\"]},\"ngram_filter\": {\"type\": \"ngram\",\"min_gram\": 2,\"max_gram\": 3}},\"analyzer\": {\"nori_analyzer_with_stopwords\": {\"type\": \"custom\",\"tokenizer\": \"nori_user_dict_tokenizer\",\"filter\": [\"nori_readingform\", \"korean_stop\", \"nori_filter\", \"trim\"]},\"nori_ngram_analyzer\": {\"type\": \"custom\",\"tokenizer\": \"nori_user_dict_tokenizer\",\"filter\": [\"nori_readingform\", \"ngram_filter\", \"trim\"]}}}}," +
+            String settingsAndMappings = "{\"settings\": {\"analysis\": {\"tokenizer\": {\"nori_user_dict_tokenizer\": {\"type\": \"nori_tokenizer\",\"decompound_mode\": \"mixed\",\"discard_punctuation\": \"false\"}},\"filter\": {\"korean_stop\": {\"type\": \"stop\",\"stopwords_path\": \"D:\\\\Tools\\\\elasticsearch-7.17.12\\\\config\\\\analysis\\\\korean_stopwords.txt\"},\"nori_filter\": {\"type\": \"nori_part_of_speech\",\"stoptags\": [\"E\", \"IC\", \"J\", \"MAG\", \"MAJ\", \"MM\", \"SP\", \"SSC\", \"SSO\", \"SC\", \"SE\", \"XPN\", \"XSA\", \"XSN\", \"XSV\", \"UNA\", \"NA\", \"VSV\", \"NP\"]},\"ngram_filter\": {\"type\": \"ngram\",\"min_gram\": 2,\"max_gram\": 3}},\"analyzer\": {\"nori_analyzer_with_stopwords\": {\"type\": \"custom\",\"tokenizer\": \"nori_user_dict_tokenizer\",\"filter\": [\"nori_readingform\", \"korean_stop\", \"nori_filter\", \"trim\"]},\"nori_ngram_analyzer\": {\"type\": \"custom\",\"tokenizer\": \"nori_user_dict_tokenizer\",\"filter\": [\"nori_readingform\", \"ngram_filter\", \"trim\"]}}}}," +
             "\"mappings\": {\"properties\": {\"stockName\": {\"type\": \"text\",\"analyzer\": \"nori_analyzer_with_stopwords\"},\"id\": {\"type\": \"keyword\"},\"stockOpen\": {\"type\": \"long\"},\"stockHigh\": {\"type\": \"long\"},\"stockLow\": {\"type\": \"long\"},\"stockClose\": {\"type\": \"long\"},\"stockVolume\": {\"type\": \"long\"},\"stockTradingValue\": {\"type\": \"long\"},\"stockFluctuationRate\": {\"type\": \"double\"},\"stockDate\": {\"type\": \"long\"},\"stockCode\": {\"type\": \"text\"},\"stockBps\": {\"type\": \"double\"},\"stockPer\": {\"type\": \"double\"},\"stockPbr\": {\"type\": \"double\"},\"stockEps\": {\"type\": \"double\"},\"stockDiv\": {\"type\": \"double\"},\"stockDps\": {\"type\": \"double\"}}}}";
 
 
@@ -214,7 +216,7 @@ public class StockElasticService {
         log.info("stock query : {}", query);
 
         if (query != null) {
-            List<String> stockList = new ArrayList<>();
+            Set<String> stockSet = new HashSet<>();  // Set을 사용하여 중복 제거
 
             // Elasticsearch에 요청을 보낼 SearchRequest 객체 생성
             SearchRequest searchRequest = new SearchRequest("stock_index");
@@ -232,19 +234,19 @@ public class StockElasticService {
             // RestHighLevelClient를 사용하여 Elasticsearch에 검색 요청을 보내고 결과를 받음
             SearchResponse searchResponse = elasticsearchClient.search(searchRequest, RequestOptions.DEFAULT);
             SearchHits hits = searchResponse.getHits();
-            log.info("hits : {}", hits);
+//            log.info("hits : {}", hits);
 
             // SearchHits에서 결과를 추출
             for (SearchHit hit : hits) {
                 // 각 hit에서 필요한 정보를 추출
                 Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-
+                log.info("sourceAsMap : {}", sourceAsMap);
                 // 추출한 정보를 사용하여 NewsDto를 생성하거나 처리
                 // 예시: title, link, description, pubDate 등 필드를 추출
                 String name = (String) sourceAsMap.get("stockName");
-                stockList.add(name);
+                stockSet.add(name);
             }
-            return stockList;
+            return new ArrayList<>(stockSet);
         } else {
             return null;
         }

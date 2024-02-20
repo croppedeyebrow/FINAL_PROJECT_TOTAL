@@ -30,10 +30,10 @@ public class CommunityService {
         return CommunityDto.of(communityRepository.save(communityEntity));
     }
 
-//    public Page<CommunityDto> getAllPosts(Pageable pageable) {
-//        Page<CommunityEntity> communityPage = communityRepository.findAll(pageable);
-//        return communityPage.map(CommunityDto::of);
-//    }
+    public Page<CommunityDto> getAllPosts(Pageable pageable) {
+        Page<CommunityEntity> communityPage = communityRepository.findAll(pageable);
+        return communityPage.map(CommunityDto::of);
+    }
 
     public boolean incrementViews(Long id) {
         Optional<CommunityEntity> optionalCommunityEntity = communityRepository.findById(id);

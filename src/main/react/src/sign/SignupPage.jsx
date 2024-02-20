@@ -139,7 +139,7 @@ const SignupPage = () => {
         // 입력 모달 등장
         alert("이메일 전송");
       } else {
-        alert("존재하지 않는 이메일입니다.");
+        alert("이미 존재하는 이메일입니다.");
       }
     } catch (error) {
       alert("이메일 전송 실패");

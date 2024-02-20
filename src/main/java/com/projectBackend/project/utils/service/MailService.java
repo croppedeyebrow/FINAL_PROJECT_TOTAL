@@ -88,20 +88,20 @@ public class MailService {
     public boolean sendSimpleMessage(String to) throws Exception {
         // to는 email로 중복 체크를 한다.
         boolean isTrue = memberRepository.existsByMemberEmail(to);
-        System.out.println("이메일 중복 체크 : " + isTrue);
+        log.info("이메일 중복 체크 : {}", isTrue);
         if (!isTrue) {
             ePw = createKey(); // 랜덤 인증번호 생성
-            System.out.println("ePw : " + ePw);
+            log.info("ePw   : {}", ePw);
             MimeMessage message = createMessage(to); // 메일 발송
             try {
                 emailsender.send(message);
                 EPW = ePw;
-                System.out.println("EPW : " + EPW);
+                log.info("EPW   : {}", EPW);
+                return true;
             } catch (MailException e) {
                 e.printStackTrace();
-                throw new RuntimeException("Failed to send email. Please check your email configuration and try again.");
+                return false;
             }
-            return true;
         }
         else {
             return false;

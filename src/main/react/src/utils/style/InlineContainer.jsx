@@ -29,7 +29,7 @@ const Category = styled.div`
 
 const InlineCon = styled.div`
   width: 120rem;
-  height: 150vh;
+  height: 160vh;
   min-height: 108rem;
   max-height: 150rem;
   background: ${(props) =>

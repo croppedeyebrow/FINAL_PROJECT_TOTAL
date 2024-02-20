@@ -191,8 +191,12 @@ export const RealTimeBox = styled.div`
   justify-content: center;
   width: 50.7rem;
   height: 5rem;
-
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   left: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 768px) {
     width: 34rem;
@@ -291,7 +295,7 @@ export const MostViewBox = styled.div`
   width: 100%;
   height: 10rem;
   top: 3rem;
-
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;
@@ -322,6 +326,10 @@ export const MostNewsName = styled.div`
   font-size: 1.3rem;
   line-height: 2rem;
   color: var(--mainlightorange);
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
@@ -411,6 +419,10 @@ export const NewsImgBox = styled.img`
   border-radius: 1.5rem;
   background: rgba(255, 184, 136, 0.12);
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (max-width: 768px) {
     width: 8rem;
   }
@@ -425,6 +437,10 @@ export const NewsInfoBox = styled.div`
   gap: 1.5rem;
   width: 34rem;
   height: 8.3rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 768px) {
     width: 20rem;

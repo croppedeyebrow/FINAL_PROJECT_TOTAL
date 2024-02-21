@@ -21,6 +21,8 @@ public class Common {
     public static String kakaoTokenUrl = "https://kauth.kakao.com/oauth/token";
     public static String clientId = "a42a4db55c114cff5770a883fc8607f9";
 //    public static String redirectUri = "http://localhost:8111/kakao";
-   public static String redirectUri = "https://www.code8.shop:8111/kakao";
+//   public static String redirectUri = "https://www.code8.shop:8111/kakao";
+    public static String redirectUri = "http://192.168.10.8:8111/kakao";
+//    public static String redirectUri = "https://www.code8.shop:8111/kakao";
     public static String clientSecret = "Xs7FwH1FUNOkspaOszcuw2wZXTQGrEIs";
 }

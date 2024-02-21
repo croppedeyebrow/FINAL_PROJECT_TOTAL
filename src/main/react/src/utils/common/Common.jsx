@@ -11,13 +11,14 @@ export const MARSTOCK_DOMAIN = "";
 // export const REDIRECT_URL = "http://localhost:3000/kakao";
 // 통합 버전
 // export const REDIRECT_URL = "http://localhost:8111/kakao";
-// https
-export const REDIRECT_URL = "https://www.code8.store/kakao";
+export const REDIRECT_URL = "http://192.168.10.8:8111/kakao";
+// // https
+// export const REDIRECT_URL = "https://www.code8.store/kakao";
 
 // 통합 버전
-// export const WEB_SOCKET = "ws://localhost:8111/ws/marstock";
+export const WEB_SOCKET = "ws://192.168.10.8:8111/ws/marstock";
 // https
-export const WEB_SOCKET = "wss://www.code8.store/ws/marstock";
+// export const WEB_SOCKET = "wss://www.code8.store/ws/marstock";
 export const API_KEY = "a42a4db55c114cff5770a883fc8607f9";
 export const SECRET_KEY = "Xs7FwH1FUNOkspaOszcuw2wZXTQGrEIs";
 

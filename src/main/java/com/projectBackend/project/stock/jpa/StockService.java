@@ -77,7 +77,7 @@
         // 조영준 : 주식 리스트 출력
         public List<StockDto> getStockList(String type) throws ParseException {
             Date date = new Date();
-
+            log.info("주식 페이지 데이터 실행");
             // Date date = dateFormat.parse(formattedDate);
             // 무한 스크롤을 위한 임시 200개 세팅
             Pageable pageable = PageRequest.of(0, 200);
